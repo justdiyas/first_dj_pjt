@@ -1,7 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block title %}
         {% if title %}
             <title>{{ title }}</title>
@@ -9,15 +11,29 @@
             <title>Blog Page</title>
         {% endif %}
     {% endblock title %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/base.css' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                 {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
+    <div class="navbar">
+        {% if user.is_authenticated %}
+            <a class="active" href="{% url 'blog:blog-main' %}"><i class="fa fa-fw fa-home"></i>Home</a>
+            <a href="#"><i class="fa fa-fw fa-info"></i>Profile</a>
+            <a href="{% url 'user:user-logout' %}" class="split"><i class="fa fa-fw fa-user"></i>Logout</a>
+        {% else %}
+            <a class="active" href="{% url 'blog:blog-main' %}"><i class="fa fa-fw fa-home"></i>Home</a>
+            <a href="{% url 'user:user-login' %}" class="split"><i class="fa fa-fw fa-user"></i>Login</a>
+            <a href="{% url 'user:user-register' %}" class="split"><i class="fa fa-fw fa-male"></i>Register</a>
+        {% endif %}
+    </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    <div class="content-section">
     {% block content %}
         {% for post in post_list %}
             <h2>{{ post.title }}</h2>
@@ -27,10 +43,7 @@
         {% empty %}
             <p>No posts yet.</p>
         {% endfor %}
-    <div>
-        <small class="text-muted">Have an account?</small>
-        <button type="button"><a href="{% url 'user:user-login' %}">Sign In</button>
-    </div>
     {% endblock content %}
+    </div>
 </body>
 </html>

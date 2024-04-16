@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import UserRegisterForm
 from django.contrib import messages
-from django.contrib.auth import views
+from django.contrib.auth import views, logout
 
 def register(request):
     if request.method == 'POST':
@@ -16,6 +16,10 @@ def register(request):
     return render(request, 'user/register.html', {'form': form})
 
 
-class login(views.LoginView):
+class LoginView(views.LoginView):
     template_name = 'user/login.html'
 
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'user/logout.html')
