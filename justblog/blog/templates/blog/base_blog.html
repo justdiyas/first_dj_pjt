@@ -11,15 +11,26 @@
     {% endblock title %}
 </head>
 <body>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                 {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     {% block content %}
         {% for post in post_list %}
             <h2>{{ post.title }}</h2>
             <p style="color:blue">{{ post.author }}</p>
-            <small class="text-muted">{{ post.publication_date }}</small>
+            <small class="text-muted">{{ post.publication_date|date:'d.m.Y, h:i a' }}</small>
             <p> {{ post.content }}</p>
         {% empty %}
             <p>No posts yet.</p>
         {% endfor %}
+    <div>
+        <small class="text-muted">Need an account?</small>
+        <button type="button"><a href="{% url 'user:user-register' %}">Sign Up</button>
+    </div>
     {% endblock content %}
 </body>
 </html>
