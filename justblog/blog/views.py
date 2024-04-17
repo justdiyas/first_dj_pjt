@@ -7,3 +7,8 @@ class mainListView(generic.ListView):
     template_name = 'blog/base_blog.html'
     queryset = Post.objects.all()
 
+
+def home(request):
+    return render(request, 'blog/home.html')
+
+
