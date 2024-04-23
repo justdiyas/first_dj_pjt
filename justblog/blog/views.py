@@ -4,7 +4,7 @@ from .models import Post
 
 
 class mainListView(generic.ListView):
-    template_name = 'blog/base_blog.html'
+    template_name = 'blog/polls.html'
     queryset = Post.objects.all()
 
 
