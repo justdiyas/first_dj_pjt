@@ -1,13 +1,10 @@
-body {
-  background: #fafafa;
-  color: #333333;
-  margin-top: 5rem;
-}
-
 .navbar {
+  position: fixed;
   width: 100%;
   background-color: #555;
   overflow: auto;
+  top: 0;
+  left: 0;
 }
 
 /* Navbar links */
@@ -42,9 +39,14 @@ body {
   }
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+/* Initial values of padding were: 10px 20px */
 .content-section {
   background: #ffffff;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-top: 50px;
