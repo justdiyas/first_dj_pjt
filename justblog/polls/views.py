@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from .models import Question
+from django.views import generic
 
-# Create your views here.
+class IndexListView(generic.ListView):
+    template_name = 'polls/index.html'
+    queryset = Question.objects.all()
+
+

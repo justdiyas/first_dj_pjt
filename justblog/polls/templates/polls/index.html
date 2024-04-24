@@ -1,0 +1,24 @@
+{% extends 'blog/base_blog.html' %}
+{% block content %}
+{% if question_list %}
+    {% for question in question_list %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ question.author.profile.image.url }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ question.author }}</a>
+                    <small class="text-muted">{{ question.publication_date|date:'d.m.Y, h:i a' }}</small>
+                </div>
+                <h4><a class="article-title" href="#">{{ question.question_text }}</a></h4>
+                {% for choice in question.choice_set.all %}
+                    <ul>
+                        <li class="article-content"> {{ choice.choice_text }}</li>
+                    </ul>
+                {% endfor %}
+            </div>
+        </article>
+    {% endfor %}
+{% else %}
+    <p>No polls are currently available.</p>
+{% endif %}
+{% endblock content %}

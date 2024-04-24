@@ -3,6 +3,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth import views, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
 
 def register(request):
     if request.method == 'POST':
@@ -17,12 +18,14 @@ def register(request):
     return render(request, 'user/register.html', {'form': form})
 
 
-class LoginView(views.LoginView):
+class LoginView(SuccessMessageMixin, views.LoginView):
     template_name = 'user/login.html'
+    success_message = 'You have been logged in!'
 
 
 def logout_view(request):
     logout(request)
+    messages.info(request, 'You have been logged out!')
     return render(request, 'user/logout.html')
 
 @login_required

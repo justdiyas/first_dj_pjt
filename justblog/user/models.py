@@ -9,10 +9,11 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} profile'
 
-    def save(self):
-        super().save()
+    def save(self, *args, **kwargs):
+        super().save(*args)
         img = Image.open(self.image.path)
         if img.height > 125 or img.width > 125:
             output_size = (125, 125)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
