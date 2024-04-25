@@ -1,0 +1,18 @@
+{% extends 'blog/base_blog.html' %}
+{% block content %}
+<div class="content-section">
+    <div class="border-bottom mb-4">
+        <h4>{{ question.question_text|title }}</h4>
+    </div>
+    <div>
+        <ul>
+        {% for choice in question.choice_set.all %}
+            <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <a href="{% url 'polls:polls-detail' question.id %}">Vote again?</a>
+    </div>
+</div>
+{% endblock content %}
