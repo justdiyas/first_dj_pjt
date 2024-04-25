@@ -10,11 +10,6 @@
                     <small class="text-muted">{{ question.publication_date|date:'d.m.Y, h:i a' }}</small>
                 </div>
                 <h4><a class="article-title" href="#">{{ question.question_text }}</a></h4>
-                {% for choice in question.choice_set.all %}
-                    <ul>
-                        <li class="article-content"> {{ choice.choice_text }}</li>
-                    </ul>
-                {% endfor %}
             </div>
         </article>
     {% endfor %}
