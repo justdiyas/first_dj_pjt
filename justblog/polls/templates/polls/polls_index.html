@@ -9,7 +9,7 @@
                     <a class="mr-2" href="#">{{ question.author }}</a>
                     <small class="text-muted">{{ question.publication_date|date:'d.m.Y, h:i a' }}</small>
                 </div>
-                <h4><a class="article-title" href="#">{{ question.question_text }}</a></h4>
+                <h5><a class="article-title" href="{% url 'polls:polls-detail' question.id %}">{{ question.question_text }}</a></h5>
             </div>
         </article>
     {% endfor %}
