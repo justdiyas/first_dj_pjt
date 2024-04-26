@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import F
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 class IndexListView(generic.ListView):
     template_name = 'polls/polls_index.html'
@@ -20,7 +21,7 @@ class ResultDetailView(generic.DetailView):
     model = Question
     template_name = 'polls/polls_result.html'
 
-
+@login_required
 def vote(request, pk):
     question = get_object_or_404(Question, pk=pk)
     try:
