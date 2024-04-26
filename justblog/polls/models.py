@@ -9,7 +9,7 @@ class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def was_published_recently(self):
-        week_ago = timezone.now() - datetime.timedelta(days=7)
+        week_ago = self.publication_date - datetime.timedelta(days=7)
         return week_ago < self.publication_date < timezone.now()
 
     def __repr__(self):
