@@ -45,4 +45,15 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
         post = self.get_object()
         if self.request.user == post.author:
             return True
-        return False 
+        return False
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, generic.DeleteView):
+    model = Post
+    success_url = '/home/blog/'
+    success_message = 'Blog post has been deleted!'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
