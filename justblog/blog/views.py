@@ -3,7 +3,7 @@ from .models import Post
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 
 
@@ -30,3 +30,19 @@ class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, generic.UpdateView):
+    model = Post
+    fields = ['title', 'content']
+    success_message = 'Blog post has been updated!'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False 
