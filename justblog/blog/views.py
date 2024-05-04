@@ -3,6 +3,7 @@ from .models import Post
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 
 
@@ -20,7 +21,8 @@ class PostListView(generic.ListView):
 class PostDetailView(generic.DetailView):
     model = Post
 
-class PostCreateView(SuccessMessageMixin, generic.CreateView):
+
+class PostCreateView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     model = Post
     fields = ['title', 'content']
     success_message = 'New blog post has been created!'
