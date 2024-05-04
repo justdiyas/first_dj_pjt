@@ -9,9 +9,5 @@ class Post(models.Model):
     content = models.TextField()
     publication_date = models.DateTimeField(default=timezone.now)
 
-
     def __repr__(self):
         return f"{self.author}'s post"
-
-
-
