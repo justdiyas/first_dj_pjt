@@ -6,11 +6,14 @@ from django.urls import reverse
 from django.db.models import F
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from .forms import ChoiceForm
 
 class IndexListView(generic.ListView):
     template_name = 'polls/polls_index.html'
     queryset = Question.objects.all()
-
+    ordering = ['-publication_date']
 
 class IndexDetailView(generic.DetailView):
     model = Question
@@ -34,3 +37,14 @@ def vote(request, pk):
         selected_choice.save()
         messages.success(request, 'Your voice is counted')
         return HttpResponseRedirect(reverse('polls:polls-result', args=(question.id,)))
+
+class QuestionCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Question
+    form_class = ChoiceForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+

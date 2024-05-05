@@ -8,4 +8,5 @@ urlpatterns = [
     path('<int:pk>/detail/', views.IndexDetailView.as_view(), name='polls-detail'),
     path('<int:pk>/vote/', views.vote, name='polls-vote'),
     path('<int:pk>/vote/result/', views.ResultDetailView.as_view(), name='polls-result'),
+    path('new/', views.QuestionCreateView.as_view(), name='create-question'),
 ]
