@@ -5,11 +5,11 @@
         <form method="post">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4"><strong>Poll Question</strong></legend>
-                    {{ form|crispy }}
+                    <legend class="border-bottom mb-4"><strong>Choice Options</strong></legend>
+                    {{ choice_form|crispy }}
                 </fieldset>
                 <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit">Next</button>
+                    <button class="btn btn-outline-info" type="submit">Post</button>
                 </div>
         </form>
     </div>

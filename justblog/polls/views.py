@@ -1,13 +1,13 @@
 from .models import Question, Choice
 from django.views import generic
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import F
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.messages.views import SuccessMessageMixin
+from .forms import ChoiceFormSet
+from django.contrib.auth.decorators import login_required
 
 class IndexListView(generic.ListView):
     template_name = 'polls/polls_index.html'
@@ -45,6 +45,17 @@ class QuestionCreateView(LoginRequiredMixin, generic.CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-
-
+@login_required
+def create_choice(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+    if request.method == 'POST':
+        choice_form = ChoiceFormSet(request.POST, instance=question)
+        if choice_form.is_valid():
+            choice_form.save()
+            messages.success(request, 'New polls have been successfully created!')
+            return redirect('polls:polls-index')
+    else:
+        choice_form = ChoiceFormSet(instance=question)
+    context = {'choice_form': choice_form}
+    return render(request, 'polls/choice_form.html', context)
 
