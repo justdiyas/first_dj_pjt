@@ -17,7 +17,7 @@ class Question(models.Model):
         return f'Author: {self.author} \nQuestion: {self.question_text}'
 
     def get_absolute_url(self):
-        return reverse('polls:polls-index', kwargs={'pk': self.pk})
+        return reverse('polls:choice-create', kwargs={'pk': self.pk})
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -27,3 +27,5 @@ class Choice(models.Model):
     def __repr__(self):
         return self.choice_text
 
+    def get_absolute_url(self):
+        return reverse('polls:polls-index', kwargs={'pk': self.pk})

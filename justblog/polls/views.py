@@ -8,7 +8,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import ChoiceForm
 
 class IndexListView(generic.ListView):
     template_name = 'polls/polls_index.html'
@@ -40,11 +39,12 @@ def vote(request, pk):
 
 class QuestionCreateView(LoginRequiredMixin, generic.CreateView):
     model = Question
-    form_class = ChoiceForm
+    fields = ['question_text']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
 
 
 
