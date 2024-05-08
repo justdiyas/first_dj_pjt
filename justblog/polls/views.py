@@ -38,7 +38,7 @@ def vote(request, pk):
         messages.success(request, 'Your voice is counted')
         return HttpResponseRedirect(reverse('polls:polls-result', args=(question.id,)))
 
-class QuestionCreateView(LoginRequiredMixin, generic.CreateView):
+class PollCreateView(LoginRequiredMixin, generic.CreateView):
     model = Question
     fields = ['question_text']
 
@@ -74,3 +74,14 @@ def update_choice(request, pk):
     context = {'choice_form': choice_form, 'question': question}
     return render(request, 'polls/choice_update.html', context)
 
+
+class PollDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, generic.DeleteView):
+    model = Question
+    success_url = '/polls/'
+    success_message = 'The poll has been deleted!'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
