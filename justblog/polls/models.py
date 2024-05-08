@@ -27,5 +27,5 @@ class Choice(models.Model):
     def __repr__(self):
         return self.choice_text
 
-    # def get_absolute_url(self):
-    #     return reverse('polls:polls-index', kwargs={'pk': self.pk})
+    def get_absolute_url(self):
+        return reverse('polls:polls-index', kwargs={'pk': self.pk})

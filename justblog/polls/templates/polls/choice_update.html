@@ -9,7 +9,8 @@
                     {{ choice_form|crispy }}
                 </fieldset>
                 <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit">Post</button>
+                    <a class="btn btn-outline-secondary" href="{% url 'polls:polls-detail' question.id %}">Cancel</a>
+                    <button class="btn btn-outline-info" type="submit">Yes, update</button>
                 </div>
         </form>
     </div>

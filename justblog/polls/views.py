@@ -6,8 +6,9 @@ from django.urls import reverse
 from django.db.models import F
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import ChoiceFormSet
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
+from .forms import ChoiceFormSet, ChoiceUpdateFormSet
 
 class IndexListView(generic.ListView):
     template_name = 'polls/polls_index.html'
@@ -58,4 +59,18 @@ def create_choice(request, pk):
         choice_form = ChoiceFormSet(instance=question)
     context = {'choice_form': choice_form}
     return render(request, 'polls/choice_form.html', context)
+
+@login_required
+def update_choice(request, pk):
+    question = Question.objects.get(pk=pk)
+    if request.method == 'POST':
+        choice_form = ChoiceUpdateFormSet(request.POST, instance=question)
+        if choice_form.is_valid():
+            choice_form.save()
+            messages.success(request, 'Polls have been successfully updated!')
+            return redirect('polls:polls-index')
+    else:
+        choice_form = ChoiceUpdateFormSet(instance=question)
+    context = {'choice_form': choice_form, 'question': question}
+    return render(request, 'polls/choice_update.html', context)
 
