@@ -16,6 +16,7 @@ class PostListView(generic.ListView):
     template_name = 'blog/blog.html'
     queryset = Post.objects.all()
     ordering = ['-publication_date']
+    paginate_by = 2
 
 
 class PostDetailView(generic.DetailView):
