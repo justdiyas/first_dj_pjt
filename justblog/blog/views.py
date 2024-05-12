@@ -20,7 +20,6 @@ class PostListView(generic.ListView):
 
 
 class UserPostListView(generic.ListView):
-    model = Post
     template_name = 'blog/user_blog.html'
     paginate_by = 5
 

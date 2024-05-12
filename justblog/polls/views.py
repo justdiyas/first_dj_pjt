@@ -1,4 +1,5 @@
 from .models import Question, Choice
+from django.contrib.auth.models import User
 from django.views import generic
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
@@ -15,6 +16,16 @@ class IndexListView(generic.ListView):
     queryset = Question.objects.all()
     ordering = ['-publication_date']
     paginate_by = 5
+
+
+class UserPollListView(generic.ListView):
+    template_name = 'polls/user_polls.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Question.objects.filter(author=user).order_by('-publication_date')
+
 
 class IndexDetailView(generic.DetailView):
     model = Question

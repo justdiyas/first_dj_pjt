@@ -1,6 +1,6 @@
 {% extends 'blog/base_blog.html' %}
 {% block content %}
-    <div class="content-section">
+    <h2 class="mb-3">Polls by {{ view.kwargs.username}} ({{ page_obj.paginator.count }})</h2>
     {% if question_list %}
         {% for question in question_list %}
             <article class="media content-section">
@@ -22,7 +22,7 @@
     {% else %}
         <p>No polls are currently available.</p>
     {% endif %}
-    </div>
+    
     {% if is_paginated %}
 
         {% if page_obj.has_previous %}
