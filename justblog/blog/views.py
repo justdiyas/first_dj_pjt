@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
 
 class HomeView(TemplateView):
@@ -16,8 +16,17 @@ class PostListView(generic.ListView):
     template_name = 'blog/blog.html'
     queryset = Post.objects.all()
     ordering = ['-publication_date']
-    paginate_by = 2
+    paginate_by = 5
 
+
+class UserPostListView(generic.ListView):
+    model = Post
+    template_name = 'blog/user_blog.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-publication_date')
 
 class PostDetailView(generic.DetailView):
     model = Post

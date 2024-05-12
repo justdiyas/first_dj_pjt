@@ -14,7 +14,7 @@ class IndexListView(generic.ListView):
     template_name = 'polls/polls_index.html'
     queryset = Question.objects.all()
     ordering = ['-publication_date']
-    paginate_by = 2
+    paginate_by = 5
 
 class IndexDetailView(generic.DetailView):
     model = Question

@@ -7,7 +7,7 @@
                 {% if object.author == user %}
                     <a class="mr-2" href="{% url 'user:user-profile' %}">{{ object.author }}</a>
                 {% else %}
-                    <a class="mr-2" href="#">{{ object.author }}</a>
+                    <a class="mr-2" href="{% url 'blog:user-blog' object.author.username %}">{{ object.author }}</a>
                 {% endif %}
                 <small class="text-muted">{{ object.publication_date|date:'d.m.Y, h:i a' }}</small>
                 {% if object.author == user %}
