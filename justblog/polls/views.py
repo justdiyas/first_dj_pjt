@@ -11,6 +11,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
 from .forms import ChoiceFormSet, ChoiceUpdateFormSet
 
+
 class IndexListView(generic.ListView):
     template_name = 'polls/polls_index.html'
     queryset = Question.objects.all()

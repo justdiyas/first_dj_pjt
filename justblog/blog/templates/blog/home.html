@@ -1,7 +1,9 @@
 {% extends 'blog/base_blog.html' %}
 {% block content %}
     {% if user.is_authenticated %}
+    <div class="border-bottom mb-3">
         <h3>Welcome, <strong>{{ user }}</strong>!</h3>
+    </div>
     {% else %}
         <h3>Welcome!</h3>
     {% endif %}
