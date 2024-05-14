@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import views, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import send_mail
 
 def register(request):
     if request.method == 'POST':
@@ -47,4 +48,3 @@ def profile(request):
         'profile_form': profile_form,
     }
     return render(request, 'user/profile.html', context)
-
