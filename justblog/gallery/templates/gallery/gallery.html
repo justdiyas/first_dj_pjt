@@ -1,2 +1,15 @@
-{% extends 'blog.base_blog.html' %}
-{%  %}
+{% extends 'blog/base_blog.html' %}
+{% block content %}
+    <body>
+    <h3>Image Gallery</h3>
+        {% if object_list %}
+        <ul>
+            {% for image in object_list %}
+            <li><img src="{{ image.image.url }}" alt="{{ image.title }}"></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p style="color:blue">No photos have been uploaded yet.</p>
+        {% endif %}
+    </body>
+{% endblock content %}
