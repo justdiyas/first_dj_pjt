@@ -25,6 +25,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('user/', include('user.urls')),
     path('polls/', include('polls.urls')),
+    path('gallery/', include('gallery.urls')),
     path('user/password-reset/',
          auth_views.PasswordResetView.as_view(template_name='user/password_reset.html'), name='password_reset'),
     path('user/password-reset/done/',
