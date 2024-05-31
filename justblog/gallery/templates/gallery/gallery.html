@@ -6,22 +6,24 @@
 {% endif %}
 <div class="content-section">
     <div class="container">
-        <div class="col-md-5">
-            <div class="thumbnail">
-            {% if object_list %}
-                {% for image in object_list %}
-                    <img src="{{ image.image.url }}" class="img-fluid w-100 shadow-1-strong rounded" alt="{{ image.title }}" style="width:100%"/>
-                    <div class="caption">
-                        <p>{{ image.title }}</p>
-                    </div>
-                    {% if image.user == user %}
-                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Delete</a>
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                <p style="color:blue">No image has been uploaded yet.</p>
-            {% endif %}
-            </div>
+        <div class="row text-center text-lg-start">
+                {% if object_list %}
+                    {% for image in object_list %}
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <img src="{{ image.image.url }}" class="img-responsive img-thumbnail rounded" alt="{{ image.title }}" style="width:100%"/>
+                            <div class="caption">
+                                <p>{{ image.title }}</p>
+                            </div>
+                            <div class='mb-3'>
+                                {% if image.user == user %}
+                                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Delete</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color:blue">No image has been uploaded yet.</p>
+                {% endif %}
         </div>
     </div>
 </div>
