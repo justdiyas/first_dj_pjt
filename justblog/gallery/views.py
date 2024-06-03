@@ -10,7 +10,7 @@ from django.contrib import messages
 class GalleryListView(generic.ListView):
     template_name = 'gallery/gallery.html'
     queryset = Gallery.objects.all()
-    paginate_by = 10
+    paginate_by = 8
 
 
 # @login_required

@@ -82,3 +82,23 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.container {
+  display: flex;
+}
+
+.row {
+  display: flex;
+}
+
+.img-responsive {
+  flex: 1; /* This will make all the images take equal width */
+  object-fit: cover; /* This will make sure the images maintain their proportions */
+  margin: 5px; /* This will add some spacing between the images */
+}
+
+.img {
+  flex: 1; /* This will make all the images take equal width */
+  object-fit: cover; /* This will make sure the images maintain their proportions */
+  margin: 5px; /* This will add some spacing between the images */
+}

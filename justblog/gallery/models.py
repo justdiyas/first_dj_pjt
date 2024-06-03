@@ -14,7 +14,7 @@ class Gallery(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         img = Image.open(self.image.path)
-        if img.width > 400 and img.height > 600:
-            output_size = (400, 600)
+        if img.width > 300 and img.height > 400:
+            output_size = (300, 400)
             img.thumbnail(output_size)
             img.save(self.image.path)
