@@ -16,7 +16,7 @@
                             </div>
                             <div class='mb-3'>
                                 {% if image.user == user %}
-                                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Delete</a>
+                                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'gallery:image_delete' image.pk %}">Delete</a>
                                 {% endif %}
                             </div>
                         </div>

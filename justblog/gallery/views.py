@@ -35,3 +35,16 @@ class UploadImageView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateVie
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class DeleteImageView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, generic.DeleteView):
+    model = Gallery
+    template_name = 'gallery/delete_image.html'
+    success_url = '/gallery/'
+    success_message = 'Photo has been deleted!'
+
+    def test_func(self):
+        image = self.get_object()
+        if self.request.user == image.user:
+            return True
+        return False
