@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from .models import Gallery
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.models import User
 from .forms import UploadImageForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -48,3 +49,13 @@ class DeleteImageView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMix
         if self.request.user == image.user:
             return True
         return False
+
+
+class UserGalleryView(generic.ListView):
+    model = Gallery
+    template_name = 'gallery/user_gallery.html'
+    paginate_by = 8
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Gallery.objects.filter(user=user)
