@@ -17,8 +17,8 @@
 </head>
 <body>
     <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-secondary fixed-top">
-        <div class="container">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
           <a class="navbar-brand mr-4" href="{% url 'blog:blog-home' %}"><i class="fa fa-fw fa-home"></i>Home</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -44,7 +44,7 @@
         </div>
       </nav>
     </header>
-    <main role="main" class="container">
+    <main role="main" class="container-fluid">
       <div class="row">
         <div class="col-md-12">
             {% if messages %}
