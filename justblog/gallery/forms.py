@@ -6,3 +6,9 @@ class UploadImageForm(ModelForm):
     class Meta:
         model = Gallery
         fields = ['title', 'image']
+
+
+class UpdateImageForm(ModelForm):
+    class Meta:
+        model = Gallery
+        fields = ['title']

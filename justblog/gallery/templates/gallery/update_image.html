@@ -1,0 +1,17 @@
+{% extends 'blog/base_blog.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="post">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4"><strong>Update Image Title</strong></legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <a class="btn btn-outline-secondary" href="{% url 'gallery:gallery' %}">Cancel</a>
+                    <button class="btn btn-outline-info" type="submit">Yes, update</button>
+                </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -4,14 +4,15 @@ from .models import Gallery
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
-from .forms import UploadImageForm
+from .forms import UploadImageForm, UpdateImageForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
 
 class GalleryListView(generic.ListView):
     template_name = 'gallery/gallery.html'
     queryset = Gallery.objects.all()
-    paginate_by = 8
+    paginate_by = 16
 
 
 # @login_required
@@ -36,6 +37,24 @@ class UploadImageView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateVie
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class UpdateImageView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, generic.UpdateView):
+    model = Gallery
+    form_class = UpdateImageForm
+    template_name = 'gallery/update_image.html'
+    success_message = 'Gallery photo has been updated!'
+    success_url = '/gallery/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        image = self.get_object()
+        if self.request.user == image.user:
+            return True
+        return False
 
 
 class DeleteImageView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, generic.DeleteView):

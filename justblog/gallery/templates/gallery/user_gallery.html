@@ -1,8 +1,9 @@
 {% extends 'blog/base_blog.html' %}
 {% block content %}
 <h4 class="border-bottom mb-4">Photo Gallery of {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h4>
+<a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'gallery:gallery' %}">Back</a>
 {% if user.is_authenticated %}
-    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'gallery:new_image_upload' %}">Upload</a>
+    <a class="btn btn-warning btn-sm mt-1 mb-1" href="{% url 'gallery:new_image_upload' %}">Upload</a>
 {% endif %}
 <div class="content-section">
     <div class="container">
@@ -12,15 +13,10 @@
                         <div class="col-lg-3 col-md-4 col-6">
                             <img src="{{ image.image.url }}" class="img-responsive img-fluid rounded" alt="{{ image.title }}" style="width:100%"/>
                             <div class="caption">
-                                <p>{{ image.title }}</p>
+                                <p><u>{{ image.title }}</u></p>
                             </div>
-                            <div class="caption">
+                            <div class="caption mb-3">
                                 <a href="#">{{ image.user }}</a>
-                            </div>
-                            <div class='mt-3 mb-3'>
-                                {% if image.user == user %}
-                                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'gallery:image_delete' image.pk %}">Delete</a>
-                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
