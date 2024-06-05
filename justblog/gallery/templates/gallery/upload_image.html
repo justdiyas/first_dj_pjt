@@ -6,7 +6,9 @@
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4"><strong>Upload Image</strong></legend>
-            {{ form|crispy }}
+<!--            {{ image_form|crispy }}-->
+<!--            {{ description_form|crispy }}-->
+                {{ form|crispy }}
         </fieldset>
         <div class="form-group">
             <button class="btn btn-outline-info" type="submit">Upload</button>

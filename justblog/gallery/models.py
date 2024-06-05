@@ -18,3 +18,8 @@ class Gallery(models.Model):
             output_size = (300, 400)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+
+class Description(models.Model):
+    gallery_image = models.ForeignKey(Gallery, on_delete=models.CASCADE)
+    text = models.TextField(max_length=500)

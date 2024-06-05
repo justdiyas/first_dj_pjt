@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
-from .models import Gallery
+from .models import Gallery, Description
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
@@ -15,17 +15,31 @@ class GalleryListView(generic.ListView):
     paginate_by = 16
 
 
+# class ImageDetailView(generic.DetailView):
+#     model = Description
+#     template_name = 'gallery/detail_image.html'
+
+
 # @login_required
 # def upload_image(request):
 #     if request.method == 'POST':
-#         form = UploadImageForm(request.POST, request.FILES, instance=request.user)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'New image has been succesfully uploaded!')
-#             return redirect('gallery:gallery')
+#         image_form = UploadImageForm(request.POST, request.FILES, instance=request.user)
+#         description_form = DescriptionForm(request.POST, instance=request.user)
+#         if image_form.is_valid():
+#             image = image_form.save()
+#             if description_form.is_valid():
+#                 description_form.gallery_image = image
+#                 description_form.save()
+#                 messages.success(request, 'New image has been succesfully uploaded!')
+#                 return redirect('gallery:gallery')
 #     else:
-#         form = UploadImageForm(instance=request.user)
-#     return render(request, 'gallery/upload_image.html', {'form': form})
+#         image_form = UploadImageForm(instance=request.user)
+#         description_form = DescriptionForm(instance=request.user)
+#     context = {
+#         'image_form': image_form,
+#         'description_form': description_form
+#     }
+#     return render(request, 'gallery/upload_image.html', context)
 
 class UploadImageView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     model = Gallery
