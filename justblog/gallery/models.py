@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
-
+from django.urls import reverse
 
 class Gallery(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -10,6 +10,9 @@ class Gallery(models.Model):
 
     def __str__(self):
         return self.title
+
+    # def get_absolute_url(self):
+    #     return reverse('gallery:gallery', kwargs={'pk': self.pk})
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

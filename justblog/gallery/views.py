@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
-from .models import Gallery, Description
+from .models import Gallery
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
@@ -15,38 +15,12 @@ class GalleryListView(generic.ListView):
     paginate_by = 16
 
 
-# class ImageDetailView(generic.DetailView):
-#     model = Description
-#     template_name = 'gallery/detail_image.html'
-
-
-# @login_required
-# def upload_image(request):
-#     if request.method == 'POST':
-#         image_form = UploadImageForm(request.POST, request.FILES, instance=request.user)
-#         description_form = DescriptionForm(request.POST, instance=request.user)
-#         if image_form.is_valid():
-#             image = image_form.save()
-#             if description_form.is_valid():
-#                 description_form.gallery_image = image
-#                 description_form.save()
-#                 messages.success(request, 'New image has been succesfully uploaded!')
-#                 return redirect('gallery:gallery')
-#     else:
-#         image_form = UploadImageForm(instance=request.user)
-#         description_form = DescriptionForm(instance=request.user)
-#     context = {
-#         'image_form': image_form,
-#         'description_form': description_form
-#     }
-#     return render(request, 'gallery/upload_image.html', context)
-
 class UploadImageView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     model = Gallery
     form_class = UploadImageForm
     template_name = 'gallery/upload_image.html'
-    success_message = 'New image has been successfully uploaded!'
     success_url = '/gallery/'
+    success_message = 'Gallery image has been uploaded!'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
